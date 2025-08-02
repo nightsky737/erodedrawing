@@ -23,16 +23,30 @@ data = st_canvas(
 if st.button("Click to make the river from ur image!"):
     if data is not None and data.image_data is not None:
         img_data = data.image_data #is 255. 
-        print(np.min(img_data[:,:,0]))
         overlayed_img = overlay_img(img_data)
         raster_grid, flow_accumulator, eroder = make_simulation(overlayed_img)
         st.write("Pre erosion river")
         fig, ax = plt.subplots()
         ax.imshow(overlayed_img)
-        st.pyplot(fig)
+
+        st.session_state["prefig"] = fig
+        st.session_state.grid = raster_grid
+        st.session_state.flow_accumulator = flow_accumulator
+        st.session_state.eroder = eroder
+        st.session_state.overlayed_img =overlayed_img
+
+if st.session_state.get("prefig") != None:
+    st.write("showing")
+    st.pyplot(st.session_state.get("prefig"))
+
         
 if st.button("Click to erode the river!"):
-    run_simulation(flow_accumulator, eroder)
-    st.write("Post erosion")
-    ax.imshow(overlayed_img)
+    if st.session_state.get("flow_accumulator") == None:
+        st.write("Please make the river first!")
+    else:
+        run_simulation(st.session_state.flow_accumulator, st.session_state.eroder)
+        st.write("Post erosion")
+        fig, ax = plt.subplots()
+        ax.imshow(st.session_state.grid.at_node["topographic__elevation"].reshape(st.session_state.overlayed_img.shape))
+        st.pyplot(fig)
 

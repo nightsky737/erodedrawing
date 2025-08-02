@@ -39,6 +39,6 @@ def make_simulation(overlayed_img):
     return raster_grid, flow_accumulator, eroder
     
 def run_simulation(flow_accumulator, eroder):
-    for _ in range(10):
+    for _ in range(20):
         flow_accumulator.run_one_step() #apparently landlab tried to make everything similar (ie all run one step)
         eroder.run_one_step(100) #the param is how many years it runs at once.
