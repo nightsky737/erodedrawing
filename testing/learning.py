@@ -6,15 +6,7 @@ import rasterio
 import rasterio.features
 import rasterio.warp
 
-with open("testing/output_be.tif") as dataset:
-    mask = dataset.mask()
 
-    for geom, val in rasterio.features.shapes(
-        mask, transform=dataset.transform
-    ):
-        geom = rasterio.warp.transform_geom(
-            dataset.crs, 'EPSG:4326', geom, precision=6
-        )
 
 #     mg = esri_ascii.load(fp, name="topographic__elevation", at="node")
 # z = mg.at_node["topographic__elevation"]
