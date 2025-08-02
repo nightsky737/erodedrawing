@@ -1,2 +1,3 @@
 landlab
 rasterio
+streamlit-drawable-canvas
