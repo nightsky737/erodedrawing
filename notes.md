@@ -6,7 +6,7 @@ Data for one pixel is made up of samples (so samples kind of like channels)
 
 
 # TODO
-Get it working in jupyter
+fix the trenches by setting it instead of subtracting it
 get it working in streamlit.
 ta da 
 #check that it is between 1 and 255
