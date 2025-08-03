@@ -29,7 +29,7 @@ def overlay_img(np_img, diff=50):
     terrain = terrain + carved_idxs
     terrain = gaussian_filter(terrain, sigma=5)
 
-    return terrain[::-1, :]
+    return terrain#[::-1, :]
 
 def make_simulation(overlayed_img):
     raster_grid = RasterModelGrid(overlayed_img.shape, 1)

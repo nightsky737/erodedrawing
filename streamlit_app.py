@@ -5,8 +5,7 @@ from streamlit_drawable_canvas import st_canvas
 import matplotlib.pyplot as plt
 from rivereroder import *
 
-st.write("Welcome to dig a trench simulator!")
-st.write("Draw on the canvas below to dig a trench!")
+st.write("Draw on the canvas below! Each stroke represents a trench being cut into a slightly sloped terrain!")
 
 data = st_canvas(
     fill_color="rgba(255, 165, 0, 1)", 
@@ -20,15 +19,17 @@ data = st_canvas(
     key="canvas",
 )
 
-if st.button("Click to make the river from ur image!"):
+if st.button("Click to make terrain from your image!"):
     if data is not None and data.image_data is not None:
         img_data = data.image_data #is 255. 
         overlayed_img = overlay_img(img_data)
         raster_grid, flow_accumulator, eroder = make_simulation(overlayed_img)
-        st.write("Pre erosion river")
         fig, ax = plt.subplots()
-        ax.imshow(overlayed_img)
-
+        im = ax.imshow(overlayed_img, cmap="gist_earth")
+        ax.set_title("Pre erosion figure")
+        color_bar = plt.colorbar(im, ax=ax)
+        color_bar.set_label('Elevation')
+        ax.set_axis_off()
         st.session_state["prefig"] = fig
         st.session_state.grid = raster_grid
         st.session_state.flow_accumulator = flow_accumulator
@@ -36,17 +37,19 @@ if st.button("Click to make the river from ur image!"):
         st.session_state.overlayed_img =overlayed_img
 
 if st.session_state.get("prefig") != None:
-    st.write("showing")
     st.pyplot(st.session_state.get("prefig"))
 
         
-if st.button("Click to erode the river!"):
+if st.button("Click to erode the terrain!"):
     if st.session_state.get("flow_accumulator") == None:
         st.write("Please make the river first!")
     else:
         run_simulation(st.session_state.flow_accumulator, st.session_state.eroder)
-        st.write("Post erosion")
         fig, ax = plt.subplots()
-        ax.imshow(st.session_state.grid.at_node["topographic__elevation"].reshape(st.session_state.overlayed_img.shape))
+        im = ax.imshow(st.session_state.grid.at_node["topographic__elevation"].reshape(st.session_state.overlayed_img.shape))
+        ax.set_axis_off()
+        color_bar = plt.colorbar(im, ax=ax)
+        color_bar.set_label('Elevation')
+        ax.set_title("Post erosion figure")
         st.pyplot(fig)
 
