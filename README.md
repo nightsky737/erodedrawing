@@ -1,6 +1,8 @@
 # Info
 This project is a simple project that helps to demonstrate erosion patterns over the course of 2000 years by allowing the user to draw a river or design that will then be eroded, with this project also showing the finished result.
 
+It does so by creating a shallow slope that the user can then carve a deeper trench into. The trench is both at a lower elevation than the rest of the slope and has a steeper gradient than the slope. I then use sklearn's gaussian blur to smooth out the walls of the trench, before running the erosion simulation.
+
 # DEMO
 [Link](http://37.27.51.34:34961/)
 # Screenshots 
