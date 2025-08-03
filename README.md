@@ -2,7 +2,10 @@
 This project is a simple project that helps to demonstrate erosion patterns over the course of 2000 years by allowing the user to draw a river or design that will then be eroded, with this project also showing the finished result.
 
 # DEMO
-Link:
+[Link](http://37.27.51.34:34961/)
+# Screenshots 
+<img width="817" height="579" alt="image" src="https://github.com/user-attachments/assets/99459462-6232-4792-9dc2-0e0690916c99" />
+<img width="625" height="877" alt="image" src="https://github.com/user-attachments/assets/74464279-dddf-4509-9ba4-6c47a5a988c4" />
 
 # Hosting it yourself
 1. Clone the repo
